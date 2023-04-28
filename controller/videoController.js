@@ -1,5 +1,9 @@
 export const trendingVideo = (req, res) => {
-    res.send(`this video is ${req.params.id}`);
+    res.render('home');
+  };
+
+  export const seeVideo = (req, res) => {
+    res.render('watch'); 
   };
 
   export const uploadVideo = (req, res) => {
