@@ -1,0 +1,7 @@
+extend base
+
+block content 
+    h4 Edit videos 
+    form(method="POST") 
+        input(name="name" type="text" placeholder="Video Title" value=video.title required)
+        input(type="submit" value="save")

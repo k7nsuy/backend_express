@@ -1,5 +1,5 @@
 import express from 'express';
-import { trendingVideo, seeVideo, uploadVideo, editVideo, deleteVideo } from '../controller/videoController.js';
+import { trendingVideo, watchVideo, uploadVideo, getEditVideo,postEditVideo, deleteVideo } from '../controller/videoController.js';
 
 export const videoRouter = express.Router();
 
@@ -10,9 +10,9 @@ videoRouter.get('/upload', uploadVideo);
 // 정규 표현식을 사용하여 숫자만 인식하도록 지정 
 // d(digit) - 0~9 숫자, + - 어느 자리 숫자 상관 x , (\\d+) - \ 하나 필요하지만 js에선 \\ 두개 필요
 // 앞에 :id - id를 붙여준 이유는 해당 req.params.id 와 같이 key 값(id)을 주기 위해
-videoRouter.get('/:id(\\d+)', trendingVideo);
-videoRouter.get('/see', seeVideo);
-videoRouter.get('/:id(\\d+)/edit', editVideo);
+videoRouter.get('/:id(\\d+)', watchVideo);
+videoRouter.get('/:id(\\d+)/edit', getEditVideo);
+videoRouter.post('/:id(\\d+)/edit', postEditVideo);
 videoRouter.get('/:id(\\d+)/delete', deleteVideo);
 
 export default videoRouter;

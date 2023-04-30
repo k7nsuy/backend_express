@@ -3,7 +3,7 @@ export const joinUser = (req, res) => {
   };
 
   export const loginUser = (req, res) => {
-    res.send('Hello Worlsssssd!');
+    res.render('login');
   };
 
 export const logoutUser = (req, res) => {
