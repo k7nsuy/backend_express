@@ -1,3 +1,4 @@
+import './db.js'
 import express from 'express';
 import morgan from 'morgan';
 import globalRouter from '../router/globalRouter.js';
@@ -25,6 +26,6 @@ app.use('/videos' ,videoRouter);
 
 // listen port
 app.listen(3000, () => {
-    console.log('Example app listening on port 3000!');
+    console.log('Node server is running on port 3000 ✅');
     }
 )

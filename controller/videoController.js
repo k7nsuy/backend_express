@@ -56,7 +56,17 @@ export const trendingVideo = (req, res) => {
   }
 
   export const postUploadVideo = (req, res) => {
-    
+    const {title} = req.body
+    const newVideo = {
+      title: title,
+      rating: 1,
+      comments: "comments",
+      createdAt:  "just now",
+      views: 1,
+      id: videos.length + 1
+    }
+    videos.push(newVideo)
+    res.redirect('/')
   }
 
 
