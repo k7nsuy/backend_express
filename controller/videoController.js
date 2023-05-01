@@ -45,8 +45,20 @@ export const trendingVideo = (req, res) => {
   };
 
   export const postEditVideo = (req,res) => {
-    res.end()
+    const {id} = req.params;
+    let {title} = req.body;
+    videos[id - 1].title = title
+    res.redirect(`/videos/${id}`)
   }
+  
+  export const getUploadVideo = (req, res) => {
+    res.render('upload', {pageTitle: `Upload Video`})
+  }
+
+  export const postUploadVideo = (req, res) => {
+    
+  }
+
 
   export const deleteVideo = (req, res) => {
     res.send('Helloasdasdasdsadsadssssd!');

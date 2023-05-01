@@ -10,6 +10,9 @@ const app = express();
 // morgan
 app.use(morgan('dev'));
 
+// get body from request
+app.use(express.urlencoded({extended: true}))
+
 // view engine
 app.set('view engine', 'pug'); 
 app.set('views', process.cwd() + '/src/views');
