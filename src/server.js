@@ -1,9 +1,8 @@
-import './db.js'
 import express from 'express';
 import morgan from 'morgan';
-import globalRouter from '../router/globalRouter.js';
-import userRouter from '../router/userRouter.js';
-import videoRouter from '../router/videoRouter.js';
+import globalRouter from './router/globalRouter.js';
+import userRouter from './router/userRouter.js';
+import videoRouter from './router/videoRouter.js';
 
 // express
 const app = express();
@@ -24,8 +23,4 @@ app.use('/' ,globalRouter);
 app.use('/users' ,userRouter);
 app.use('/videos' ,videoRouter);
 
-// listen port
-app.listen(3000, () => {
-    console.log('Node server is running on port 3000 ✅');
-    }
-)
+export default app

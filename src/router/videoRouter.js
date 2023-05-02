@@ -1,5 +1,5 @@
 import express from 'express';
-import { trendingVideo, watchVideo, uploadVideo, getEditVideo,postEditVideo, deleteVideo, getUploadVideo, postUploadVideo } from '../controller/videoController.js';
+import {watchVideo, getEditVideo,postEditVideo, deleteVideo, getUploadVideo, postUploadVideo } from '../controller/videoController.js';
 
 export const videoRouter = express.Router();
 
