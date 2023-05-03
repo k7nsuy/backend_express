@@ -1,5 +1,8 @@
 extends base
 
 block content 
-    h1 #{video.views} #{video.views === 1 ? 'view' : 'views'}
-    a(href=`${video.id}/edit`) Edit videos &rarr;
+    div
+        p=video.description
+        small=video.createdAt
+    br
+    a(href=`${video.id}/edit`) Edit video &rarr;

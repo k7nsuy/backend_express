@@ -5,9 +5,11 @@ import videoModel from "../models/Video.js";
     return res.render('home', { pageTitle: 'Home', videos})
   };
 
-  export const watchVideo = (req, res) => {
+  export const watchVideo = async (req, res) => {
     const {id} = req.params;
-    res.render('watch', {pageTitle: `Watch `,}); 
+    const video = await videoModel.findById(id)
+    console.log(video);
+    return  res.render('watch', {pageTitle: `${video.title}`, video}); 
   };
 
   export const getEditVideo = (req, res) => {
@@ -26,20 +28,20 @@ import videoModel from "../models/Video.js";
 
   export const postUploadVideo = async (req, res) => {
     const {title, description, hashtags} = req.body
-    const video = new videoModel({
-      title,
-      description,
-      createdAt: Date.now(),
-      hashtags: hashtags.split(',').map((word) => `#${word}`),
-      meta: {
-        views: 0,
-        rating: 0,
-      }
-    }) 
-    console.log(video);
-    await video.save()
-    
-    res.redirect('/')
+    try {
+      await videoModel.create({
+        title,
+        description,
+        hashtags: hashtags.split(',').map((word) => `#${word}`),
+      }) 
+      return res.redirect('/')
+
+    } catch (error) {
+      return res.render('upload', {
+        pageTitle: `Upload Video`,
+        errorMessage: error._message
+      })
+    }
   }
 
   export const deleteVideo = (req, res) => {
