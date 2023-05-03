@@ -8,18 +8,35 @@ import videoModel from "../models/Video.js";
   export const watchVideo = async (req, res) => {
     const {id} = req.params;
     const video = await videoModel.findById(id)
-    console.log(video);
+    if(!video) {
+      return res.render('404', {pageTitle: 'video not found',})
+    }
     return  res.render('watch', {pageTitle: `${video.title}`, video}); 
   };
 
-  export const getEditVideo = (req, res) => {
+  export const getEditVideo = async (req, res) => {
     const {id} = req.params;
-    res.render('edit', {pageTitle: `Edit `});
+    const video = await videoModel.findById(id)
+    if(!video) {
+      return res.render('404', {pageTitle: 'video not found',})
+    }
+    return res.render('edit', {pageTitle: `Edit ${video.title}`, video});
   };
 
-  export const postEditVideo = (req,res) => {
+  export const postEditVideo = async (req,res) => {
     const {id} = req.params;
-    res.redirect(`/videos/${id}`)
+    const {title, description, hashtags} = req.body
+    const video = await videoModel.exist({_id: id})
+    if(!video) {
+      return res.render('404', {pageTitle: 'video not found',})
+    }
+    // update video
+    await videoModel.findByIdAndUpdate(id, {
+      title,
+      description,
+      hashtags: videoModel.formatHashtags(hashtags)
+  })
+    return res.redirect(`/videos/${id}`) 
   }
   
   export const getUploadVideo = (req, res) => {
@@ -32,7 +49,7 @@ import videoModel from "../models/Video.js";
       await videoModel.create({
         title,
         description,
-        hashtags: hashtags.split(',').map((word) => `#${word}`),
+        hashtags: videoModel.formatHashtags(hashtags)
       }) 
       return res.redirect('/')
 
