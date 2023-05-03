@@ -1,10 +1,10 @@
 import express from 'express';
-import {joinUser, loginUser, logoutUser, editUser, removeUser, seeUser} from '../controller/userController.js'
+import {getCreateUser, getLoginUser, logoutUser, editUser, removeUser, seeUser, postCreateUser} from '../controller/userController.js'
 
 export const userRouter = express.Router();
 
-userRouter.get('/join', joinUser);
-userRouter.get('/login', loginUser);
+userRouter.route('/join').get(getCreateUser).post(postCreateUser);
+userRouter.get('/login', getLoginUser);
 userRouter.get('/logout', logoutUser);
 userRouter.get('/edit', editUser);
 userRouter.get('/remove', removeUser);
