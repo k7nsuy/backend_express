@@ -1,0 +1,11 @@
+extend ../base.pug
+
+block content 
+    div
+        p=video.description
+        small=video.createdAt
+    br
+    a(href=`${video.id}/edit`) Edit Video ➡️
+    br
+    br
+    a(href=`${video.id}/delete`) Delete This Video ❌
