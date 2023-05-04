@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 
 // Create a new user
 export const getCreateUser = (req, res) => {
-    res.render('User/createUser', {pageTitle: 'Create User'});
+    res.render('User/createUser', {pageTitle: 'Join'});
 };
 
 export const postCreateUser = async (req, res) => {
@@ -66,6 +66,9 @@ export const postLoginUser = async (req, res) => {
             errorMessage: 'The password is not correct'
         })
     }
+    // session
+    req.session.loggedIn = true
+    req.session.user = user
     return res.redirect('/')
 }
 

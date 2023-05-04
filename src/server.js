@@ -4,6 +4,7 @@ import globalRouter from './router/globalRouter.js';
 import userRouter from './router/userRouter.js';
 import videoRouter from './router/videoRouter.js';
 import session from 'express-session';
+import { localsMiddleware } from './middleware.js';
 
 // express
 const app = express();
@@ -22,8 +23,9 @@ app.use(session({
     })
 )
 
-// check the session info from client
+// Check the session info from client
 app.use((req,res,next) => {
+    res.locals.session = req.session.loggedIn
     req.sessionStore.all((err, session) => {
         console.log(session);
         next()
@@ -34,6 +36,8 @@ app.use((req,res,next) => {
 app.set('view engine', 'pug'); 
 app.set('views', process.cwd() + '/src/views');
 
+// middleware for local variables
+app.use(localsMiddleware)
 
 // Routers
 app.use('/' ,globalRouter);
