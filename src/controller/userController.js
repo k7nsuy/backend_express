@@ -1,4 +1,5 @@
 import userModel from '../models/User.js'
+import bcrypt from 'bcrypt'
 
 // Create a new user
 export const getCreateUser = (req, res) => {
@@ -6,53 +7,79 @@ export const getCreateUser = (req, res) => {
 };
 
 export const postCreateUser = async (req, res) => {
-    const {name,username,email,password,location} = req.body
+    const {name,username,email,password,password2,location} = req.body
     const pageTitle = 'Create User'
 
-    // Check if user already exists
-    const userNameExists = await userModel.exists({username})
+    // Confirm password
+    if(password !== password2) {
+        return res.status(400).render('User/createUser', {
+            pageTitle,
+            errorMessage: 'Password does not match'
+        })
+    }
+
+    // Check if user already exists, use $or method to check if they exist 
+    const userNameExists = await userModel.exists({ $or: [{username}, {email}]}) 
     if(userNameExists) {
-        return res.render('User/createUser', {
+        return res.status(400).render('User/createUser', {
             pageTitle,
             errorMessage: 'User already exists'});
     }
-
-    // Check if email already exists
-    const emailExists = await userModel.exists({email})
-    if(emailExists) {
-        return res.render('User/createUser', {
+    
+    try {
+        await userModel.create({
+            name,
+            username,
+            email,
+            password,
+            location})
+        return res.redirect('login')
+    } catch (error) {
+        return res.status(400).render('User/createUser', {
             pageTitle,
-            errorMessage: 'Email already exists'});
+            errorMessage: error._message
+        })
     }
-
-    await userModel.create({
-        name,
-        username,
-        email,
-        password,
-        location})
-    return res.redirect('login')
 }
 
 // Login user
 export const getLoginUser = (req, res) => {
-    res.render('User/loginUser', {pageTitle: 'Login User'});
+    res.render('User/loginUser', {pageTitle: 'Login'});
 };
 
+export const postLoginUser = async (req, res) => {
+    // check if username exists
+    const {username, password} = req.body
+    const pageTitle = 'Login'
+    const user = await userModel.findOne({username})
+    if (!user) {
+        return res.status(400).render('User/loginUser', {
+            pageTitle, 
+            errorMessage: 'The username does not exist'
+        })
+    }
+    // check if the password is correct
+    const verifyPassword = await bcrypt.compare(password, user.password)
+    if(!verifyPassword) {
+        return res.status(400).render('User/loginUser', {
+            pageTitle, 
+            errorMessage: 'The password is not correct'
+        })
+    }
+    return res.redirect('/')
+}
 
 // Logout user
 export const logoutUser = (req, res) => {
     res.send('Welcome');
 }
 
+// Edit profile
 export const editUser = (req, res) => {
     res.send('Welcome');
 }
 
+// Withdraw the user
 export const removeUser = (req, res) => {
-    res.send('Welcome');
-}
-
-export const seeUser = (req, res) => {
     res.send('Welcome');
 }

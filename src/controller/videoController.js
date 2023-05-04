@@ -11,7 +11,7 @@ import videoModel from "../models/Video.js";
     const {id} = req.params;
     const video = await videoModel.findById(id)
     if(!video) {
-      return res.render('404_Error', {pageTitle: 'video not found',})
+      return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
     return  res.render('./Video/watchVideo', {pageTitle: `${video.title}`, video}); 
   };
@@ -21,7 +21,7 @@ import videoModel from "../models/Video.js";
     const {id} = req.params;
     const video = await videoModel.findById(id)
     if(!video) {
-      return res.render('404_Error', {pageTitle: 'video not found',})
+      return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
     return res.render('./Video/editVideo', {pageTitle: `Edit ${video.title}`, video});
   };
@@ -31,7 +31,7 @@ import videoModel from "../models/Video.js";
     const {title, description, hashtags} = req.body
     const video = await videoModel.exist({_id: id})
     if(!video) {
-      return res.render('404_Error', {pageTitle: 'video not found',})
+      return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
     await videoModel.findByIdAndUpdate(id, {
       title,
@@ -57,7 +57,7 @@ import videoModel from "../models/Video.js";
       return res.redirect('/')
 
     } catch (error) {
-      return res.render('./Video/uploadVideo', {
+      return res.status(400).render('./Video/uploadVideo', {
         pageTitle: `Upload Video`,
         errorMessage: error._message
       })

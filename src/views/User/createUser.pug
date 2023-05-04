@@ -4,9 +4,17 @@ block content
     if errorMessage
         h2=errorMessage
     form(action="", method="post") 
-        input(placeholder="name" name="name", type="text", required)
-        input(placeholder="email" name="email", type="email", required)
-        input(placeholder="username" name="username", type="text", required)
-        input(placeholder="password" name="password", type="password", required)
-        input(placeholder="location" name="location", type="text", required)
+        input(placeholder="Name" name="name", type="text", required)
+        input(placeholder="Email" name="email", type="email", required)
+        input(placeholder="Username" name="username", type="text", required)
+        input(placeholder="Password" name="password", type="password", required)
+        input(placeholder="Confirm Password" name="password2", type="password", required)
+        input(placeholder="Location" name="location", type="text", required)
         input(type="submit", value="Join")
+    hr
+    div 
+        span Already have an account?
+        br
+        a(href="login") Login Now ➡️ 
+
+                
