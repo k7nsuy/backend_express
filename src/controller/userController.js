@@ -86,3 +86,21 @@ export const editUser = (req, res) => {
 export const removeUser = (req, res) => {
     res.send('Welcome');
 }
+
+// login with github 
+export const getGithubLogin = (req, res) => {
+    const baseUrl = 'https://github.com/login/oauth/authorize'
+    const config = {
+        client_id: "d7ba0e7c931993167ad7",
+        allow_signup: false,
+        scope: 'read:user user:email'
+    }
+    // // to merge with cofig values by using URLSearchParams
+    const params = new URLSearchParams(config).toString() 
+    const returnUrl = `${baseUrl}?${params}`
+    return res.redirect(returnUrl)
+}
+
+export const getGithubCallback = (req,res) => {
+
+}

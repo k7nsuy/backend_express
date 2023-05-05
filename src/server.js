@@ -31,13 +31,13 @@ app.use(
 )
 
 // Check the session info from client
-app.use((req,res,next) => {
-    res.locals.session = req.session.loggedIn
-    req.sessionStore.all((err, session) => {
-        console.log(session);
-        next()
-    })
-})
+// app.use((req,res,next) => {
+//     res.locals.session = req.session.loggedIn
+//     req.sessionStore.all((err, session) => {
+//         console.log(session);
+//         next()
+//     })
+// })
 
 // view engine
 app.set('view engine', 'pug'); 
