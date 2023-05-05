@@ -91,7 +91,7 @@ export const removeUser = (req, res) => {
 export const getGithubLogin = (req, res) => {
     const baseUrl = 'https://github.com/login/oauth/authorize'
     const config = {
-        client_id: "d7ba0e7c931993167ad7",
+        client_id: process.env.GITHUB_CLIENT_ID,
         allow_signup: false,
         scope: 'read:user user:email'
     }
