@@ -165,8 +165,43 @@ export const getEditUser = (req, res) => {
     return res.render('User/editUser', {pageTitle: 'Edit Profile'})
 }
 
-export const postEditUser = (req, res) => {
-    return res.render('User/editUser', {pageTitle: 'Edit Profile'})
+export const postEditUser = async (req, res) => {
+    const {
+        body: { name, email, username, location },
+        session: {
+          user: { _id}
+        }
+      } = req;
+
+    const pageTitle = 'Edit Profile';
+    const findUsername = await userModel.findOne({username})
+    const findEmail = await userModel.findOne({email})
+
+    if (findUsername === username) {
+        return res.render("User/editUser", {
+          pageTitle,
+          errorMessage: "Username already exists",
+        });
+    } else if (findEmail === email) {
+        return res.render("User/editUser", {
+            pageTitle,
+            errorMessage: "Email already exists",
+          });
+    } else if (findUsername === username && findEmail === email) {
+        return res.render("User/editUser", {
+            pageTitle,
+            errorMessage: "Username and Email already exists",
+          });
+    } else {
+        const updatedUser = await userModel.findByIdAndUpdate(_id, {
+            name,
+            email,
+            username,
+            location
+        },{new: true})
+        req.session.user = updatedUser
+    }
+    return res.redirect('/users/edit')
 }
 
 // Withdraw the user

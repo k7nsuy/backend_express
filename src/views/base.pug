@@ -14,6 +14,8 @@ html(lang="en")
                         a(href="/") Home 
                     if loggedIn
                         li
+                            a(href="/videos/upload") Upload Video
+                        li
                             a(href="/users/logout") Logout
                         li 
                             a(href="/users/profile") #{profile.name}'s Profile 
@@ -24,8 +26,6 @@ html(lang="en")
                             a(href="/users/join") Join
                         li
                             a(href="/users/login") Login
-                    li
-                        a(href="/videos/upload") Upload Video
                     li
                         a(href="/videos/search") Search Video
         main

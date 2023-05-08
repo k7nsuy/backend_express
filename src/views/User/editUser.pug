@@ -1,6 +1,10 @@
 extends ../base.pug
 
 block content
+    if errorMessage
+        h2=errorMessage
+    if updateMessage 
+        h2=updateMessage
     form(action="", method="post") 
         input(placeholder="Name" name="name", type="text", required value=profile.name)
         input(placeholder="Email" name="email", type="email", required value=profile.email)
