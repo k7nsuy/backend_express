@@ -4,6 +4,22 @@ export const localsMiddleware = (req,res,next) => {
     // check if the user logged in
     res.locals.loggedIn = Boolean(req.session.loggedIn)
     // get user information
-    res.locals.profile = req.session.user
+    res.locals.profile = req.session.user || {}
     next()
+}
+
+export const protectedMiddleware = (req,res,next) => {
+    if(req.session.loggedIn) {
+        next()
+    } else {
+        return res.redirect('login')
+    }
+}
+
+export const publicMiddleware = (req,res,next) => {
+    if(!req.session.loggedIn) {
+        return next()
+    } else {
+        return res.redirect('/')
+    }
 }

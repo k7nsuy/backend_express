@@ -161,8 +161,12 @@ export const getLogoutUser = (req, res) => {
 }
 
 // Edit profile
-export const editUser = (req, res) => {
-    res.send('Welcome');
+export const getEditUser = (req, res) => {
+    return res.render('User/editUser', {pageTitle: 'Edit Profile'})
+}
+
+export const postEditUser = (req, res) => {
+    return res.render('User/editUser', {pageTitle: 'Edit Profile'})
 }
 
 // Withdraw the user

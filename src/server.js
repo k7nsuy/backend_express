@@ -24,7 +24,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 3600
+      maxAge: 400000
     },
     store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/metube'}) // to save session to mongodb
     })
