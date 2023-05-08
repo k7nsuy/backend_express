@@ -204,6 +204,39 @@ export const postEditUser = async (req, res) => {
     return res.redirect('/users/edit')
 }
 
+// Edit password
+export const getEditPassword = (req, res) => {
+    if(req.session.user.socialOnly === true) {
+        return res.redirect('/')
+    }
+    return res.render('User/editPassword', {pageTitle: 'Edit Password'})
+}
+
+export const postEditPassword = async (req, res) => {
+    const {
+        session: {
+            user: {_id, password}
+        },
+        body: {
+            oldPassword,
+            newPassword,
+            newPassword2
+        }
+    } = req
+    const user = await userModel.findById(_id)
+    const checkPassword = await bcrypt.compare(oldPassword, user.password)
+    if(!checkPassword) {
+        return res.render('User/editPassword', {pageTitle: 'Edit Password', errorMessage: 'Old Password is not correct'})  
+    }
+
+    if(newPassword !== newPassword2) {
+        return res.render('User/editPassword', {pageTitle: 'Edit Password', errorMessage: 'Password does not match'})  
+    } 
+    user.password = newPassword
+    await user.save() // to apply middleware for hash password, use save function
+    return res.redirect('logout')
+}
+
 // Withdraw the user
 export const removeUser = (req, res) => {
     res.send('Welcome');
