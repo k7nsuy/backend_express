@@ -43,21 +43,23 @@ import videoModel from "../models/Video.js";
   
   // upload video
   export const getUploadVideo = (req, res) => {
-    res.render('./Video/uploadVideo', {pageTitle: `Upload Video`})
+    res.render('Video/uploadVideo', {pageTitle: `Upload Video`})
   }
 
   export const postUploadVideo = async (req, res) => {
     const {title, description, hashtags} = req.body
+    const {path} = req.file
     try {
       await videoModel.create({
         title,
+        fileUrl: path,
         description,
         hashtags: videoModel.formatHashtags(hashtags)
       }) 
       return res.redirect('/')
 
     } catch (error) {
-      return res.status(400).render('./Video/uploadVideo', {
+      return res.status(400).render('Video/uploadVideo', {
         pageTitle: `Upload Video`,
         errorMessage: error._message
       })

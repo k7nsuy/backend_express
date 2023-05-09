@@ -14,7 +14,7 @@ export const protectedMiddleware = (req,res,next) => {
     if(req.session.loggedIn) {
         next()
     } else {
-        return res.redirect('login')
+        return res.redirect('/users/login')
     }
 }
 
@@ -26,5 +26,6 @@ export const publicMiddleware = (req,res,next) => {
     }
 }
 
-// save uploaded files to local folder named uploads by using multer
-export const uploadMiddleware = multer({dest: 'uploads/'})
+// save uploaded files to local folder named uploads by using multer0
+export const avatarMiddleware = multer({dest: 'uploads/avatars/', limits: {fileSize: 300}})
+export const videoMiddleware = multer({dest: 'uploads/videos/', limits: {fileSize: 10000000}})
