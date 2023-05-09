@@ -1,3 +1,5 @@
+import multer from "multer"
+
 // to use local variables(global variables)
 export const localsMiddleware = (req,res,next) => {
     res.locals.siteName = 'METUBE'
@@ -23,3 +25,6 @@ export const publicMiddleware = (req,res,next) => {
         return res.redirect('/')
     }
 }
+
+// save uploaded files to local folder named uploads by using multer
+export const uploadMiddleware = multer({dest: 'uploads/'})

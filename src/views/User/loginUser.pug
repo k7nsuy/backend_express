@@ -4,7 +4,9 @@ block content
     if errorMessage 
     h2=errorMessage
     form(action="", method="post") 
+        label(for="") Username
         input(placeholder="Username" name="username", type="text", required)
+        label(for="") Password
         input(placeholder="Password" name="password", type="password", required)
         input(type="submit", value="Login")
         br

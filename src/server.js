@@ -46,6 +46,9 @@ app.set('views', process.cwd() + '/src/views');
 // middleware for local variables
 app.use(localsMiddleware)
 
+// create a router for upload
+app.use('/uploads', express.static('uploads'))
+
 // Routers
 app.use('/' ,globalRouter);
 app.use('/users' ,userRouter);

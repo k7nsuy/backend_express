@@ -168,8 +168,9 @@ export const getEditUser = (req, res) => {
 export const postEditUser = async (req, res) => {
     const {
         body: { name, email, username, location },
+        file,
         session: {
-          user: { _id}
+          user: { _id, avatarUrl}
         }
       } = req;
 
@@ -194,6 +195,7 @@ export const postEditUser = async (req, res) => {
           });
     } else {
         const updatedUser = await userModel.findByIdAndUpdate(_id, {
+            avatarUrl: file ? file.path : avatarUrl,
             name,
             email,
             username,
@@ -215,7 +217,7 @@ export const getEditPassword = (req, res) => {
 export const postEditPassword = async (req, res) => {
     const {
         session: {
-            user: {_id, password}
+            user: {_id}
         },
         body: {
             oldPassword,

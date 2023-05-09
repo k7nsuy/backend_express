@@ -5,10 +5,19 @@ block content
         h2=errorMessage
     if updateMessage 
         h2=updateMessage
-    form(action="", method="post") 
+    img(src="/" + profile.avatarUrl, alt="" width="150" height="200")
+    br
+    br
+    form(action="", method="post" enctype="multipart/form-data") 
+        label(for="avatar" id="avatar") Avatar 
+        input(type="file" id="avatar" name="avatar" accept="image/*")
+        label(for="") Name 
         input(placeholder="Name" name="name", type="text", required value=profile.name)
+        label(for="") Email
         input(placeholder="Email" name="email", type="email", required value=profile.email)
+        label(for="") Username
         input(placeholder="Username" name="username", type="text", required value=profile.username)
+        label(for="") Location
         input(placeholder="Location" name="location", type="text", required value=profile.location)
         input(type="submit", value="Update Profile")
         if !profile.socialOnly 
