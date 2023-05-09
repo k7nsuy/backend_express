@@ -239,6 +239,15 @@ export const postEditPassword = async (req, res) => {
     return res.redirect('logout')
 }
 
+export const getSeeProfile = async (req, res) => {
+    const {id} = req.params
+    const user = await userModel.findById(id)
+    if(!user) {
+        return res.status(400).render('404_Error', {pageTitle: 'User not found'})
+    }
+    return res.render('User/seeProfile', {pageTitle: `${user.name}'s Profile`, user} )
+}
+
 // Withdraw the user
 export const removeUser = (req, res) => {
     res.send('Welcome');

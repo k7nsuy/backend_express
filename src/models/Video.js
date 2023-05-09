@@ -9,9 +9,11 @@ const videoSchema = new mongoose.Schema({
     hashtags: [{type: String, trim: true}],
     fileUrl: {type: String, required: true},
     meta: {
-        views: {type:Number, default: 0, require: true },
-        rating: {type:Number, default: 0, require: true },
-    }
+        views: {type: Number, default: 0, require: true },
+        rating: {type: Number, default: 0, require: true },
+    },
+    // ref means what kind of data refers from
+    owner: {type: mongoose.Schema.Types.ObjectId, required: true, ref:'userModel'}
 })
 
 videoSchema.static('formatHashtags', function(hashtags) {
