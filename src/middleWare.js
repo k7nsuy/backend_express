@@ -27,5 +27,5 @@ export const publicMiddleware = (req,res,next) => {
 }
 
 // save uploaded files to local folder named uploads by using multer0
-export const avatarMiddleware = multer({dest: 'uploads/avatars/', limits: {fileSize: 300}})
+export const avatarMiddleware = multer({dest: 'uploads/avatars/', limits: {fileSize: 300000}})
 export const videoMiddleware = multer({dest: 'uploads/videos/', limits: {fileSize: 10000000}})

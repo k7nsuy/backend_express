@@ -1,8 +1,9 @@
 extends ../base
+include ../mixins/video
 
 block content
-    h1 hello
-    h2 #{user.name}
-    h2 #{user.name}
-    h2 #{user.name}
-    h2 #{user.name}
+    h2 My Videos
+    each info in user.videos 
+        +video(info)
+    else 
+        li You haven't uploaded any videos

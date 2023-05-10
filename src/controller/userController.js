@@ -1,6 +1,7 @@
 import userModel from '../models/User.js'
 import bcrypt from 'bcrypt'
 import fetch from 'node-fetch';
+import videoModel from '../models/Video.js';
 
 // Create a new user
 export const getCreateUser = (req, res) => {
@@ -239,11 +240,13 @@ export const postEditPassword = async (req, res) => {
     return res.redirect('logout')
 }
 
+// See user profile
 export const getSeeProfile = async (req, res) => {
     const {id} = req.params
-    const user = await userModel.findById(id)
+    // we can search for videos using 'populate' with userModel 
+    const user = await userModel.findById(id).populate('videos')
     if(!user) {
-        return res.status(400).render('404_Error', {pageTitle: 'User not found'})
+        return res.status(404).render('404_Error', {pageTitle: 'User not found'})
     }
     return res.render('User/seeProfile', {pageTitle: `${user.name}'s Profile`, user} )
 }

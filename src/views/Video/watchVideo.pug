@@ -8,7 +8,8 @@ block content
         p=video.description
         small=video.createdAt
         br
-        small Created by #{owner.name}
+        small 
+            a(href=`/users/${video.owner._id}`) Uploaded by #{video.owner.name}
 
     if String(video.owner) === String(profile._id)
         a(href=`${video.id}/edit`) Edit Video ➡️

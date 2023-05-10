@@ -3,19 +3,19 @@ import videoModel from "../models/Video.js";
 
   // home
   export const home = async(req, res) => {
-    const videos = await videoModel.find({}).sort({}) 
+    const videos = await videoModel.find({}).sort({ createdAt: 'desc'}) 
     return res.render('home', { pageTitle: 'Home', videos})
   };
 
   // watch video
   export const watchVideo = async (req, res) => {
     const {id} = req.params;
-    const video = await videoModel.findById(id)
-    const owner = await userModel.findById(video.owner)
+    // 'populate' helps to get user's profile
+    const video = await videoModel.findById(id).populate('owner')
     if(!video) {
       return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
-    return  res.render('./Video/watchVideo', {pageTitle: `${video.title}`, video, owner}); 
+    return  res.render('./Video/watchVideo', {pageTitle: `${video.title}`, video}); 
   };
 
   // edit video
@@ -53,13 +53,16 @@ import videoModel from "../models/Video.js";
     const {title, description, hashtags} = req.body
     const {path} = req.file
     try {
-      await videoModel.create({
+      const newVideo = await videoModel.create({
         title,
         fileUrl: path,
         description,
         hashtags: videoModel.formatHashtags(hashtags),
         owner: _id
       }) 
+      const user = await userModel.findById(_id)
+      user.videos.push(newVideo._id)
+      user.save()
       return res.redirect('/')
 
     } catch (error) {
