@@ -10,8 +10,9 @@ block content
         br
         small 
             a(href=`/users/${video.owner._id}`) Uploaded by #{video.owner.name}
+        hr
 
-    if String(video.owner) === String(profile._id)
+    if String(video.owner._id) === String(profile._id)
         a(href=`${video.id}/edit`) Edit Video ➡️
         br
         a(href=`${video.id}/delete`) Delete This Video ❌   

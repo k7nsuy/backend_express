@@ -20,20 +20,28 @@ import videoModel from "../models/Video.js";
 
   // edit video
   export const getEditVideo = async (req, res) => {
+    const {_id} = req.session.user
     const {id} = req.params;
     const video = await videoModel.findById(id)
     if(!video) {
       return res.status(404).render('404_Error', {pageTitle: 'video not found',})
+    }
+    if(String(video.owner) !== _id) {
+      return res.status(403).redirect('/')
     }
     return res.render('./Video/editVideo', {pageTitle: `Edit ${video.title}`, video});
   };
 
   export const postEditVideo = async (req,res) => {
     const {id} = req.params;
+    const {_id} = req.session.user
     const {title, description, hashtags} = req.body
-    const video = await videoModel.exist({_id: id})
+    const video = await videoModel.findById(id)
     if(!video) {
       return res.status(404).render('404_Error', {pageTitle: 'video not found',})
+    }
+    if(String(video.owner) !== String(_id)) {
+      return res.status(403).redirect('/')
     }
     await videoModel.findByIdAndUpdate(id, {
       title,
@@ -75,8 +83,16 @@ import videoModel from "../models/Video.js";
 
 // Delete a Video
   export const getDeleteVideo = async (req, res) => {
+    const {_id} = req.session.user
     const {id} = req.params
-    await videoModel.findByIdAndDelete({_id: id})
+    const video = await videoModel.findById(id)
+    if(!video) {
+      return res.status(404).render('404_Error', {pageTitle: 'video not found',})
+    }
+    if(String(video.owner) !== _id) {
+      return res.status(403).redirect('/')
+    }
+    await videoModel.findByIdAndDelete(id)
     return res.redirect('/')
   };
 
