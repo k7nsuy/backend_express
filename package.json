@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "assets": "webpack --config webpack.config.cjs"
+    "assets": "webpack"
   },
   "repository": {
     "type": "git",
