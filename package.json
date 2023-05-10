@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
+    "dev": "nodemon",
     "assets": "webpack --config webpack.config.cjs"
   },
   "repository": {
