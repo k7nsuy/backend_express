@@ -7,7 +7,6 @@ import session from 'express-session';
 import { localsMiddleware } from './middleware.js';
 import MongoStore from 'connect-mongo';
 
-
 // express
 const app = express();
 
@@ -46,8 +45,9 @@ app.set('views', process.cwd() + '/src/views');
 // middleware for local variables
 app.use(localsMiddleware)
 
-// create a router for upload
+// create a router for upload and assets
 app.use('/uploads', express.static('uploads'))
+app.use('/assets', express.static('assets'))
 
 // Routers
 app.use('/' ,globalRouter);
