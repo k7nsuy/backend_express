@@ -3,32 +3,11 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
         link(rel="stylesheet", href="/assets/css/style.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
         title #{pageTitle} | #{siteName}
     body 
-        header
-            h1=pageTitle
-            nav 
-                ul 
-                    li 
-                        a(href="/") Home 
-                    if loggedIn
-                        li
-                            a(href="/videos/upload") Upload Video
-                        li 
-                            a(href=`/users/${profile._id}`) #{profile.name}'s profile 
-                        li
-                            a(href="/users/logout") Logout
-                        li
-                            a(href="/users/edit") Edit Profile 
-                    else
-                        li
-                            a(href="/users/join") Join
-                        li
-                            a(href="/users/login") Login
-                    li
-                        a(href="/videos/search") Search Video
+        include partials/header
         main
             block content
     include partials/footer

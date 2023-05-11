@@ -6,12 +6,13 @@ block content
     br
     div
         p=video.description
+        br
         small=video.createdAt
+        br
         br
         small 
             a(href=`/users/${video.owner._id}`) Uploaded by #{video.owner.name}
-        hr
-
+        br
     if String(video.owner._id) === String(profile._id)
         a(href=`${video.id}/edit`) Edit Video ➡️
         br

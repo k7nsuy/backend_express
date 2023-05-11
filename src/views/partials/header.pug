@@ -1,0 +1,24 @@
+header
+    a(href="/").header__logo Metube 
+        i.fab.fa-youtube   
+    nav 
+        ul 
+            li 
+                li
+                    a(href="/videos/search")
+                        i.fas.fa-search
+            if loggedIn
+                li
+                    a(href="/videos/upload") Upload Video
+                li 
+                    a(href=`/users/${profile._id}`) #{profile.name}'s profile 
+                li
+                    a(href="/users/logout") Logout
+                li
+                    a(href="/users/edit") Edit Profile 
+            else
+                li
+                    a(href="/users/login") Login
+                li
+                    a(href="/users/join").header__btn Join
+            

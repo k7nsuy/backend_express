@@ -1,5 +1,33 @@
-@import "./_variables.scss";
+// Configurations
+@import "./config/_variables";
+@import "./config/_reset.scss";
+
+// Components
+@import "./components/header.scss";
+@import "./components/footer.scss";
+@import "./components/video.scss";
+@import "./components/shared.scss";
+
+// Screens
+@import "./screens/home.scss";
+@import "./screens/search.scss";
+
+// Defaults
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
 body {
-    background-color: $tomato;
+    background-color: $background;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+}
+
+main {
+    max-width: 970px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
 }

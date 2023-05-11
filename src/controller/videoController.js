@@ -3,7 +3,9 @@ import videoModel from "../models/Video.js";
 
   // home
   export const home = async(req, res) => {
-    const videos = await videoModel.find({}).sort({ createdAt: 'desc'}) 
+    const videos = await videoModel.find({})
+        .sort({ createdAt: 'desc'})
+        .populate('owner')
     return res.render('home', { pageTitle: 'Home', videos})
   };
 
@@ -106,7 +108,7 @@ import videoModel from "../models/Video.js";
           // search videos by using regular expression, i => no matter what the lowercase or the upper case
           $regex: new RegExp(`${keyword}`, 'i')
         }
-      })
+      }).populate('owner')
     }
     return res.render('./Video/searchVideo', {pageTitle: "Search", videos})
   }
