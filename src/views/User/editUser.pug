@@ -5,10 +5,9 @@ block content
         h2=errorMessage
     if updateMessage 
         h2=updateMessage
-    img(src="/" + profile.avatarUrl, alt="" width="150" height="200")
     br
     br
-    form(action="", method="post" enctype="multipart/form-data") 
+    form(action="", method="post" enctype="multipart/form-data").edit-profile__form
         label(for="avatar" id="avatar") Avatar 
         input(type="file" id="avatar" name="avatar" accept="image/*")
         label(for="") Name 
@@ -21,5 +20,5 @@ block content
         input(placeholder="Location" name="location", type="text", required value=profile.location)
         input(type="submit", value="Update Profile")
         if !profile.socialOnly 
-            hr
-            a(href="edit-password") Edit Password 
+            div.edit-profile__password
+                a(href="edit-password") 💫 Edit Password 

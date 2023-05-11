@@ -8,3 +8,24 @@
     gap: 20px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+
+.auth-switch {
+    margin-top: 20px;
+    span {
+        font-size: 18px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    a {
+        font-size: 19px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
