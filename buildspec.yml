@@ -10,10 +10,7 @@ phases:
       # - npm cache clean -f 
       # - npm install -g n
       # - n stable
-      - npm install --save-dev @babel/core
-      - npm install @babel/preset-env --save-dev
-      - npm install @babel/node --save-dev
-      - npm i nodemon --save-dev
+      npm i
   build:
     commands:
       # - apt install curl
@@ -25,7 +22,6 @@ phases:
       # - apt-get install -y mongodb-org
       # - systemctl enable mongod.service
       # - systemctl start mongod.service
-      - npm run dev
 artifacts:
   files:
     - "**/*"
