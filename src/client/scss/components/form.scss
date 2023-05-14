@@ -6,7 +6,7 @@ form {
     border-radius: 10px;
     border: 1px solid rgba(#fff,0.3);
 }
-
+// 
 input:not(input[type="range"]) {
         all: unset;
         padding: 5px 20px;
@@ -22,16 +22,18 @@ input:not(input[type="range"]) {
 }
 
 input[type="submit"],
-.social__btn {
-    margin-top: 5px;
-    padding: 12px 20px;
-    background-color: white;
-    color: rgba(0,0,0,0.9);
-    font-weight: 640;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    border-radius: 5px;
-    display: block;
+    .social__btn {
+        margin-top: 5px;
+        padding: 12px 20px;
+        background-color: white;
+        color: rgba(0,0,0,0.9);
+        font-weight: 640;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 5px;
+        display: block;
 }
+    
+
 
