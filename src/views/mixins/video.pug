@@ -6,6 +6,9 @@ mixin video(info)
                 span.video-mixin__title=info.title 
                 div.video-mixin__meta
                     span #{info.owner.name} • 
-                    span #{info.meta.views} views
+                    if (info.meta.views === 1)
+                        span #{info.meta.views} view
+                    else
+                        span #{info.meta.views} views
             
             

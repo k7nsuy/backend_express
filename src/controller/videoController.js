@@ -17,6 +17,8 @@ import videoModel from "../models/Video.js";
     if(!video) {
       return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
+    video.meta.views = video.meta.views + 1
+    await video.save()
     return  res.render('./Video/watchVideo', {pageTitle: `${video.title}`, video}); 
   };
 
@@ -111,4 +113,15 @@ import videoModel from "../models/Video.js";
       }).populate('owner')
     }
     return res.render('./Video/searchVideo', {pageTitle: "Search", videos})
+  }
+
+  export const registerView = async (req, res) => {
+    const {id} = req.params
+    const videos = await videoModel.findById(id)
+    if(!videos) {
+      return res.status(404);
+    }
+    videos.meta.views = videos.meta.views + 1
+    await videos.save()
+    return res.status(200)
   }
