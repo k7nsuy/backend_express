@@ -63,11 +63,12 @@ import videoModel from "../models/Video.js";
   export const postUploadVideo = async (req, res) => {
     const {user: {_id}} = req.session
     const {title, description, hashtags} = req.body
-    const {path} = req.file
+    const {video, thumb} = req.files
     try {
       const newVideo = await videoModel.create({
         title,
-        fileUrl: path,
+        fileUrl: video[0].path,
+        thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
         description,
         hashtags: videoModel.formatHashtags(hashtags),
         owner: _id

@@ -21,7 +21,10 @@ videoRouter.route('/:id([0-9a-f]{24})/delete')
 videoRouter.route('/upload')
     .all(protectedMiddleware)
     .get(getUploadVideo)
-    .post(videoMiddleware.single('video'), postUploadVideo)
+    .post(videoMiddleware.fields([
+        {name: 'video'},
+        {name: 'thumb'}
+    ]), postUploadVideo)
 videoRouter.get('/search', searchVideo);
 
 

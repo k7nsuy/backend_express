@@ -3,13 +3,18 @@ extend ../base.pug
 block content 
     div 
         video#preview
-        button#startBtn Start Recording
+        button#actionBtn Start Recording
     if errorMessage 
-        span=errorMessage
+        h1=errorMessage
     form(action="", method="post" enctype="multipart/form-data")
+        lable(for='vidoe') Video File
         input(name="video" type="file" id="video" placeholder="Upload Videos" accept="video/*" required) 
-        input(name="title" type="text" placeholder="Title" required maxlength=30) 
-        input(name="description" type="text" placeholder="Description" required minlength=5) 
+        br
+        br
+        lable(for='thumb') Thumbnail File
+        input(name="thumb" type="file" id="thumb" placeholder="Upload Thumbnail" accept="image/*" required) 
+        input(name="title" type="text" placeholder="Title" required) 
+        input(name="description" type="text" placeholder="Description" required) 
         input(name="hashtags" type="text" placeholder="Hashtags, divied by comma" required) 
         input(type="submit" value="Upload") 
 block scripts 

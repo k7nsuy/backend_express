@@ -1,14 +1,14 @@
-mixin video(info)
-    a(href=`/videos/${info.id}`).video-mixin 
+mixin video(video)
+    a(href=`/videos/${video.id}`).video-mixin 
         div.video-mixin
-            div.video-mixin__thumb
-            diev.video-mixin__data
-                span.video-mixin__title=info.title 
+            div.video-mixin__thumb(style=`background-image:url(${video.thumbUrl});background-size:cover;background-postion:center;`)
+            div.video-mixin__data
+                span.video-mixin__title=video.title 
                 div.video-mixin__meta
-                    span #{info.owner.name} • 
-                    if (info.meta.views === 1)
-                        span #{info.meta.views} view
+                    span #{video.owner.name} • 
+                    if (video.meta.views === 1)
+                        span #{video.meta.views} view
                     else
-                        span #{info.meta.views} views
+                        span #{video.meta.views} views
             
             

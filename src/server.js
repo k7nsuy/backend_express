@@ -30,6 +30,13 @@ app.use(
     })
 )
 
+// 
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+})
+
 // Check the session info from client
 // app.use((req,res,next) => {
 //     res.locals.session = req.session.loggedIn
