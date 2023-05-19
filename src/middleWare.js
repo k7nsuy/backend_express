@@ -14,6 +14,7 @@ export const protectedMiddleware = (req,res,next) => {
     if(req.session.loggedIn) {
         next()
     } else {
+        req.flash('error', "Not authorized")
         return res.redirect('/users/login')
     }
 }
@@ -22,6 +23,7 @@ export const publicMiddleware = (req,res,next) => {
     if(!req.session.loggedIn) {
         return next()
     } else {
+        req.flash('error', 'Not authorized')
         return res.redirect('/')
     }
 }

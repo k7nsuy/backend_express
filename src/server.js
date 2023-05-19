@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import flash from 'express-flash';
 import globalRouter from './router/globalRouter.js';
 import userRouter from './router/userRouter.js';
 import videoRouter from './router/videoRouter.js';
@@ -16,6 +17,9 @@ app.use(morgan('dev'));
 
 // get body from request
 app.use(express.urlencoded({extended: true}))
+
+// get body.text from request
+app.use(express.json())
 
 // use session(to set this session before the router starts)
 app.use(
@@ -49,6 +53,9 @@ app.use((req, res, next) => {
 // view engine
 app.set('view engine', 'pug'); 
 app.set('views', process.cwd() + '/src/views');
+
+// express-flash
+app.use(flash())
 
 // middleware for local variables
 app.use(localsMiddleware)

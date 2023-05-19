@@ -1,5 +1,5 @@
 import express from 'express';
-import {getCreateUser, getLoginUser, getGithubLogin, getLogoutUser, getEditUser, removeUser, postCreateUser, postLoginUser, getGithubCallback, postEditUser, getEditPassword, postEditPassword, getSeeProfile} from '../controller/userController.js'
+import {getCreateUser, getLoginUser, getGithubLogin, getLogoutUser, getEditUser, removeUser, postCreateUser, postLoginUser, getGithubCallback, postEditUser, getEditPassword, postEditPassword } from '../controller/userController.js'
 import { avatarMiddleware, protectedMiddleware, publicMiddleware } from '../middleware.js';
 
 export const userRouter = express.Router();
@@ -21,7 +21,6 @@ userRouter.get('/logout', protectedMiddleware, getLogoutUser);
 userRouter.get('/remove', removeUser);
 userRouter.get('/github/login', publicMiddleware, getGithubLogin);
 userRouter.get('/github/callback', publicMiddleware, getGithubCallback);
-userRouter.get('/:id', getSeeProfile)
 
 
 export default userRouter;

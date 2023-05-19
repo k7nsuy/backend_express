@@ -52,6 +52,7 @@ import videoModel from "../models/Video.js";
       description,
       hashtags: videoModel.formatHashtags(hashtags)
   })
+    req.flash('success', 'Edit video successfully')
     return res.redirect(`/videos/${id}`) 
   }
   
@@ -76,6 +77,7 @@ import videoModel from "../models/Video.js";
       const user = await userModel.findById(_id)
       user.videos.push(newVideo._id)
       user.save()
+      req.flash('success', 'uploaded video successfully')
       return res.redirect('/')
 
     } catch (error) {
@@ -95,9 +97,11 @@ import videoModel from "../models/Video.js";
       return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
     if(String(video.owner) !== _id) {
+      req.flash('error', "Not authorized")
       return res.status(403).redirect('/')
     }
     await videoModel.findByIdAndDelete(id)
+    req.flash('success', "video deleted")
     return res.redirect('/')
   };
 
@@ -125,4 +129,11 @@ import videoModel from "../models/Video.js";
     videos.meta.views = videos.meta.views + 1
     await videos.save()
     return res.status(200)
+  }
+
+  export const createComment = (req, res) => {
+    console.log(req.params);
+    console.log(req.body);
+    console.log(req.body.text, req.body.rating);
+    return res.end()
   }

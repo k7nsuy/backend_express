@@ -25,14 +25,22 @@ input[type="submit"],
     .social__btn {
         margin-top: 5px;
         padding: 12px 20px;
-        background-color: white;
-        color: rgba(0,0,0,0.9);
+        background-color: white !important;
+        color: rgba(0,0,0,0.9) !important;
+        cursor: pointer;
         font-weight: 640;
         font-size: 16px;
-        cursor: pointer;
-        text-align: center;
-        border-radius: 5px;
+        text-align: center !important;
+        border-radius: 35px;
         display: block;
+        border: none;
+        &:focus {
+          outline: none;
+        }
+        &:disabled {
+          opacity: 0.5;
+          pointer-events: none;
+        }
 }
     
 

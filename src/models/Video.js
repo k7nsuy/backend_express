@@ -14,6 +14,7 @@ const videoSchema = new mongoose.Schema({
         rating: {type: Number, default: 0, require: true },
     },
     // ref means what kind of data refers from
+    comments: [{type: mongoose.Schema.Types.ObjectId, required: true, ref:'commentModel'}],
     owner: {type: mongoose.Schema.Types.ObjectId, required: true, ref:'userModel'}
 })
 

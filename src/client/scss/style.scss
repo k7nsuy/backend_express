@@ -16,6 +16,8 @@
 @import "./screens/search.scss";
 @import "./screens/profile.scss";
 @import "./screens/editPassword.scss";
+@import "./screens/upload.scss";
+@import "./screens/watch.scss";
 
 // Defaults
 
@@ -35,4 +37,46 @@ main {
     width: 100%;
     margin: 0 auto;
     margin-top: 50px;
+}
+
+@keyframes goAway {
+    from {
+        transform: none;
+        opacity: 1;
+    } to {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
+.messages {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10px;
+    margin: 0 auto;
+    max-width: 200px;
+    padding: 10px 20px;
+    border-radius: 1000px;
+    text-align: center;
+    animation: goAway 0.5s ease-in-out forwards;
+    animation-delay: 3s;
+    &.error {
+        background-color: white;
+        color: black;
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    &.info {
+        background-color: white;
+        color: black;
+        font-weight: 500;
+    }
+
+    &.success {
+        background-color: white;
+        color: black;
+        font-weight: 500;
+    }
 }

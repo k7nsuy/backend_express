@@ -13,7 +13,7 @@ header
                 li
                     a(href="/users/edit") Edit Profile 
                 li 
-                    a(href=`/users/${profile._id}`) 
+                    a(href=`/${profile._id}`) 
                         if !profile.avatarUrl
                             img.header__avatar(src='/uploads/user.png')
                         else

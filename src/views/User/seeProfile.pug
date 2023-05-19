@@ -9,7 +9,7 @@ block content
             img.avatar(src='/uploads/user.png')
         h3=user.name
     div.video-grid
-        each info in user.videos 
-            +video(info)
+        each video in user.videos 
+            +video(video)
         else 
             span.empty__message No videos found

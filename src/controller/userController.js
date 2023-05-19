@@ -1,7 +1,6 @@
 import userModel from '../models/User.js'
 import bcrypt from 'bcrypt'
 import fetch from 'node-fetch';
-import videoModel from '../models/Video.js';
 
 // Create a new user
 export const getCreateUser = (req, res) => {
@@ -35,6 +34,7 @@ export const postCreateUser = async (req, res) => {
             email,
             password,
             location})
+            req.flash('success', 'User created successfully')
         return res.redirect('login')
     } catch (error) {
         return res.status(400).render('User/createUser', {
@@ -55,22 +55,23 @@ export const postLoginUser = async (req, res) => {
     const pageTitle = 'Login'
     const user = await userModel.findOne({username, socialOnly: false})
     if (!user) {
+        req.flash('error', 'The username does not exist')
         return res.status(400).render('User/loginUser', {
             pageTitle, 
-            errorMessage: 'The username does not exist'
         })
     }
     // check if the password is correct
     const verifyPassword = await bcrypt.compare(password, user.password)
     if(!verifyPassword) {
+        req.flash('error', 'The password is not correct')
         return res.status(400).render('User/loginUser', {
             pageTitle, 
-            errorMessage: 'The password is not correct'
         })
     }
     // session
     req.session.loggedIn = true
     req.session.user = user
+    req.flash('success', `Welcome 😊`)
     return res.redirect('/')
 }
 
@@ -157,7 +158,10 @@ if('access_token' in tokenRequest) {
 
 // Logout user
 export const getLogoutUser = (req, res) => {
-    req.session.destroy()
+    req.session.user = null;
+    res.locals.profile = req.session.user;
+    req.session.loggedIn = false;
+    req.flash('info', "See you 🙌")
     res.redirect('/');
 }
 
@@ -180,19 +184,19 @@ export const postEditUser = async (req, res) => {
     const findEmail = await userModel.findOne({email})
 
     if (findUsername === username) {
+        req.flash('error', "Username already exists")
         return res.render("User/editUser", {
           pageTitle,
-          errorMessage: "Username already exists",
         });
     } else if (findEmail === email) {
+        req.flash('error', "Email already exists")
         return res.render("User/editUser", {
             pageTitle,
-            errorMessage: "Email already exists",
           });
     } else if (findUsername === username && findEmail === email) {
+        req.flash('error', "Username and Email already exists")
         return res.render("User/editUser", {
             pageTitle,
-            errorMessage: "Username and Email already exists",
           });
     } else {
         const updatedUser = await userModel.findByIdAndUpdate(_id, {
@@ -203,6 +207,7 @@ export const postEditUser = async (req, res) => {
             location
         },{new: true})
         req.session.user = updatedUser
+        req.flash('success', 'updated user data')
     }
     return res.redirect('/users/edit')
 }
@@ -210,6 +215,7 @@ export const postEditUser = async (req, res) => {
 // Edit password
 export const getEditPassword = (req, res) => {
     if(req.session.user.socialOnly === true) {
+        req.flash('error', "Can't change password")
         return res.redirect('/')
     }
     return res.render('User/editPassword', {pageTitle: 'Edit Password'})
@@ -237,6 +243,7 @@ export const postEditPassword = async (req, res) => {
     } 
     user.password = newPassword
     await user.save() // to apply middleware for hash password, use save function
+    req.flash('info', "Passwords updated successfully")
     return res.redirect('logout')
 }
 
