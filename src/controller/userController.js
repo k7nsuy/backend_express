@@ -1,6 +1,7 @@
 import userModel from '../models/User.js'
 import bcrypt from 'bcrypt'
 import fetch from 'node-fetch';
+import videoModel from '../models/Video.js';
 
 // Create a new user
 export const getCreateUser = (req, res) => {
@@ -252,6 +253,7 @@ export const getSeeProfile = async (req, res) => {
     const {id} = req.params
     // we can search for videos using 'populate' with userModel 
     const user = await userModel.findById(id).populate('videos')
+    console.log();
     if(!user) {
         return res.status(404).render('404_Error', {pageTitle: 'User not found'})
     }
@@ -259,6 +261,14 @@ export const getSeeProfile = async (req, res) => {
 }
 
 // Withdraw the user
-export const removeUser = (req, res) => {
-    res.send('Welcome');
+export const deleteUser = async (req, res) => {
+    const {_id} = req.session.user
+    req.session.loggedIn = false;
+    const user = await userModel.findById(_id).populate('videos')
+    await userModel.findByIdAndDelete(_id)
+    for(let video of user.videos) {
+        await videoModel.findByIdAndDelete(String(video._id))
+    }
+    req.flash('success', "user and videos deleted successfully")
+    return res.redirect('/')
 }

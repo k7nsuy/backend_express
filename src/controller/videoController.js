@@ -143,8 +143,8 @@ import commentModel from "../models/Comment.js";
       body: {text},
       params: {id}
     } = req;
-    const video = await videoModel.findById(id)
 
+    const video = await videoModel.findById(id)
     if(!video) {
       return res.sendStatus(404)
     }
@@ -155,8 +155,11 @@ import commentModel from "../models/Comment.js";
       video: id
     })
 
+    const searchUser = await userModel.findById(user._id)
     // save comment to video
     video.comments.push(comment._id)
-    video.save()
-    return res.sendStatus(201)
+    searchUser.comments.push(comment._id)
+    await video.save()
+    await searchUser.save()
+    return res.status(201).json({newCommentId: comment._id})
   }

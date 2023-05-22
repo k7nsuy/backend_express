@@ -26,7 +26,8 @@ block content
                         each comment in video.comments.reverse()
                             li.comment
                                 i.fas.fa-comment 
-                                span  #{comment.text}
+                                span  #{comment.text} 
+                                span  ❌
 
 block scripts 
     if loggedIn 
