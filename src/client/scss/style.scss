@@ -9,7 +9,7 @@
 @import "./components/shared.scss";
 @import "./components/form.scss";
 @import "./components/social-login.scss";
-// @import "./components/videoPlayer.scss";
+@import "./components/videoPlayer.scss";
 
 // Screens
 @import "./screens/home.scss";
@@ -23,6 +23,7 @@
 
 a {
     color: inherit;
+    font-size: 16px;
     text-decoration: none;
 }
 

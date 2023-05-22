@@ -1,9 +1,16 @@
 .video__data {
+    max-width: 1240px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(#fff,0.3);
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     .video__title {
-      font-size: 26px;
+      font-size: 30px;
       margin-bottom: 5px;
     }
     .video__createdAt {
@@ -11,10 +18,41 @@
     }
     .video__owner {
       margin-bottom: 5px;
-      font-size: 14px;
+      font-size: 20px;
       a {
         color: cornflowerblue;
         text-decoration: underline;
       }
+    }
+  }
+  .video__comment-form {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(#fff,0.3);
+  }
+
+  #textarea {
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: rgba( 255, 255, 255, 0.95 );
+    resize: none;
+    font-size: 18px;
+  }
+
+  .video__comments {
+    display: flex;
+    flex-direction: column;
+    max-width: 580px;
+    width: 100%;
+    margin-top: 60px;
+    .comment {
+      background-color: rgba( 255, 255, 255, 0.95);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      color: black;
     }
   }

@@ -1,0 +1,12 @@
+extend ../base.pug
+
+block content       
+     div.upload__container
+        div.upload__video
+            span.upload__title Recording Video 
+            br
+            br
+            video#preview
+            input(type="submit" value="Recording") 
+block scripts 
+    script(src="/assets/js/recorder.js") 

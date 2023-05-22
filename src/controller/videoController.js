@@ -1,5 +1,6 @@
 import userModel from "../models/User.js";
 import videoModel from "../models/Video.js";
+import commentModel from "../models/Comment.js";
 
   // home
   export const home = async(req, res) => {
@@ -13,7 +14,7 @@ import videoModel from "../models/Video.js";
   export const watchVideo = async (req, res) => {
     const {id} = req.params;
     // 'populate' helps to get user's profile
-    const video = await videoModel.findById(id).populate('owner')
+    const video = await videoModel.findById(id).populate('owner').populate('comments')
     if(!video) {
       return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
@@ -88,6 +89,10 @@ import videoModel from "../models/Video.js";
     }
   }
 
+  export const recordingVideo = (req,res) => {
+    res.render('Video/recordingVideo', {pageTitle: `Recording Video`})
+  }
+
 // Delete a Video
   export const getDeleteVideo = async (req, res) => {
     const {_id} = req.session.user
@@ -124,16 +129,34 @@ import videoModel from "../models/Video.js";
     const {id} = req.params
     const videos = await videoModel.findById(id)
     if(!videos) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
     videos.meta.views = videos.meta.views + 1
     await videos.save()
-    return res.status(200)
+    return res.sendStatus(200)
   }
 
-  export const createComment = (req, res) => {
-    console.log(req.params);
-    console.log(req.body);
-    console.log(req.body.text, req.body.rating);
-    return res.end()
+  // create comment
+  export const createComment = async (req, res) => {
+    const {
+      session: {user},
+      body: {text},
+      params: {id}
+    } = req;
+    const video = await videoModel.findById(id)
+
+    if(!video) {
+      return res.sendStatus(404)
+    }
+
+    const comment = await commentModel.create({
+      text,
+      owner: user._id,
+      video: id
+    })
+
+    // save comment to video
+    video.comments.push(comment._id)
+    video.save()
+    return res.sendStatus(201)
   }

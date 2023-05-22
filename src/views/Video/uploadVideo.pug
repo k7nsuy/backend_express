@@ -6,7 +6,7 @@ block content
             span.upload__title Upload Video 
         if errorMessage 
             h1=errorMessage
-        form(action="", method="post" enctype="multipart/form-data")
+        form.edit-profile__form(action="", method="post" enctype="multipart/form-data")
             lable(for='vidoe') Video File
             input(name="video" type="file" id="video" placeholder="Upload Videos" accept="video/*" required) 
             br
@@ -17,16 +17,7 @@ block content
             input(name="description" type="text" placeholder="Description" required) 
             input(name="hashtags" type="text" placeholder="Hashtags, divied by comma" required) 
             input(type="submit" value="Upload") 
-        br
-        br
-        hr
-        br
-        br
-        div.upload__video
-            span.upload__title Recording Video 
             br
-            br
-            video#preview
-            button#actionBtn Start Recording
+            a(href="/videos/upload/recording") RECORDING 🎦
 block scripts 
     script(src="/assets/js/recorder.js") 
