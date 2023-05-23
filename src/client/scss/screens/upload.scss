@@ -2,6 +2,8 @@
     width: 100%;
 
     .upload__title {
+      font-weight: bold;
+      font-style: italic;
       font-weight: 640;
       font-size: 24px;
       text-align: center !important;
@@ -15,5 +17,15 @@
         max-width: 100%;
         margin-bottom: 10px;
       }
+
     }
+    .edit-profile__form {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 17px;
+        font-weight: 500;
+        display: block;
+        font-weight: bold;
+        font-style: italic;
+        }
+
   }

@@ -3,6 +3,7 @@ extends ../base.pug
 block content
     if errorMessage
         h2.error__message=errorMessage
+    div.title Join
     form(action="", method="post")
         input(placeholder="Name" name="name", type="text", required)
         input(placeholder="Email" name="email", type="email", required)
@@ -14,8 +15,7 @@ block content
         div.auth-switch
             br
             span Already have an account?  
-            br  
-            br
-            a(href="login") 💫 Login Now   
+            div.edit-profile__password
+                a.strong(href="login") Login Now   
 
                 

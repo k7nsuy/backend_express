@@ -2,6 +2,7 @@ import userModel from '../models/User.js'
 import bcrypt from 'bcrypt'
 import fetch from 'node-fetch';
 import videoModel from '../models/Video.js';
+import commentModel from '../models/Comment.js';
 
 // Create a new user
 export const getCreateUser = (req, res) => {
@@ -271,4 +272,18 @@ export const deleteUser = async (req, res) => {
     }
     req.flash('success', "user and videos deleted successfully")
     return res.redirect('/')
+}
+
+// delete comment
+export const deleteComment = async (req, res) => {
+    const {
+        session: {user},
+        body,
+        params: {id}
+    } = req;
+    console.log(user);
+    console.log(body);
+    await commentModel.findByIdAndDelete(id)
+    req.flash('success', "comment deleted successfully")
+    return  res.redirect(`/`); 
 }

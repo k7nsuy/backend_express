@@ -2,12 +2,11 @@ extend ../base.pug
 
 block content 
     div.upload__container
-        div.upload__video
-            span.upload__title Upload Video 
+        div.title Upload Video
         if errorMessage 
             h1=errorMessage
         form.edit-profile__form(action="", method="post" enctype="multipart/form-data")
-            lable(for='vidoe') Video File
+            lable(for='video') Video File
             input(name="video" type="file" id="video" placeholder="Upload Videos" accept="video/*" required) 
             br
             br
@@ -18,6 +17,6 @@ block content
             input(name="hashtags" type="text" placeholder="Hashtags, divied by comma" required) 
             input(type="submit" value="Upload") 
             br
-            a(href="/videos/upload/recording") RECORDING 🎦
+            div.edit-profile__password
+                a.strong(href="/videos/upload/recording") RECORDING 🎦
 block scripts 
-    script(src="/assets/js/recorder.js") 

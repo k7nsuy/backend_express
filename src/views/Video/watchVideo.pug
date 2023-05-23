@@ -12,10 +12,10 @@ block content
         br
         if String(video.owner._id) === String(profile._id)
             p
-                a(href=`${video.id}/edit`) Edit Video ✅
+                a.strong(href=`${video.id}/edit`) Edit Video
                 
             p
-                a(href=`${video.id}/delete`) Delete Video ❌
+                a.strong(href=`${video.id}/delete`) Delete Video
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
@@ -27,7 +27,8 @@ block content
                             li.comment
                                 i.fas.fa-comment 
                                 span  #{comment.text} 
-                                span  ❌
+                                if String(profile._id) === String(comment.owner._id)
+                                    a(href=`/api/comments/${comment._id}/deleteComment`) ❌ 
 
 block scripts 
     if loggedIn 

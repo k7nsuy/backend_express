@@ -18,6 +18,7 @@ import commentModel from "../models/Comment.js";
     if(!video) {
       return res.status(404).render('404_Error', {pageTitle: 'video not found',})
     }
+
     video.meta.views = video.meta.views + 1
     await video.save()
     return  res.render('./Video/watchVideo', {pageTitle: `${video.title}`, video}); 
