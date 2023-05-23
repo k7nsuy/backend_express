@@ -277,13 +277,32 @@ export const deleteUser = async (req, res) => {
 // delete comment
 export const deleteComment = async (req, res) => {
     const {
-        session: {user},
-        body,
-        params: {id}
-    } = req;
-    console.log(user);
-    console.log(body);
-    await commentModel.findByIdAndDelete(id)
-    req.flash('success', "comment deleted successfully")
-    return  res.redirect(`/`); 
+        params: { id: commentId },
+      } = req;
+      const {
+        session: {
+          user: { _id: userId },
+        },
+      } = req;
+      const comment = await commentModel.findById(commentId)
+        .populate("owner")
+        .populate("video");
+      const video = comment.video;
+      const user = await userModel.findById(userId);
+    
+      // 현재 로그인 된 유저의 아이디와 댓글 소유쥬 아이디 같은가?
+      if (String(userId) !== String(comment.owner._id)) {
+        return res.sendStatus(404);
+      }
+      if (!video) {
+        return res.sendStatus(404);
+      }
+    
+      //댓글 삭제, 비디오에서 댓글 배열 삭제, 유저에서 댓글 배열 삭제
+      user.comments.splice(user.comments.indexOf(commentId), 1);
+      await user.save();
+      video.comments.splice(video.comments.indexOf(commentId), 1);
+      await video.save();
+      await commentModel.findByIdAndRemove(commentId);
+    return  res.sendStatus(200)
 }

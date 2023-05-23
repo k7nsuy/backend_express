@@ -1,5 +1,5 @@
 import express from 'express';
-import {watchVideo, getEditVideo,postEditVideo, getDeleteVideo, getUploadVideo, postUploadVideo, searchVideo, recordingVideo } from '../controller/videoController.js';
+import {watchVideo, getEditVideo,postEditVideo, getDeleteVideo, getUploadVideo, postUploadVideo, recordingVideo } from '../controller/videoController.js';
 import { protectedMiddleware, videoMiddleware } from '../middleware.js';
 
 export const videoRouter = express.Router();
@@ -26,7 +26,6 @@ videoRouter.route('/upload')
         {name: 'thumb'}
     ]), postUploadVideo)
 videoRouter.get('/upload/recording', recordingVideo)
-videoRouter.get('/search', searchVideo);
 
 
 
