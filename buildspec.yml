@@ -5,15 +5,11 @@ phases:
     runtime-versions:
       nodejs: 16
     commands:
-      # - apt install npm
       # - apt install nodejs
+      # - apt install npm
       # - npm cache clean -f 
       # - npm install -g n
       # - n stable
-      - npm install --save-dev @babel/core
-      - npm install @babel/preset-env --save-dev
-      - npm install @babel/node --save-dev
-      - npm i nodemon --save-dev
   build:
     commands:
       # - apt install curl
@@ -25,7 +21,7 @@ phases:
       # - apt-get install -y mongodb-org
       # - systemctl enable mongod.service
       # - systemctl start mongod.service
-      - npm run dev
+      - npm run build
 artifacts:
   files:
     - "**/*"
