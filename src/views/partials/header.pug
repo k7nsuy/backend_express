@@ -17,7 +17,10 @@ header
                         if !profile.avatarUrl
                             img.header__avatar(src='/uploads/user.png')
                         else
-                            img.header__avatar(src="/" + profile.avatarUrl, alt="")
+                            if loggedIn.socialOnly
+                                img.header__avatar(src=profile.avatarUrl, alt="")
+                            else
+                                img.header__avatar(src="/" + profile.avatarUrl, alt="")
                 li
                     a(href="/users/logout").header__btn Logout
             else
