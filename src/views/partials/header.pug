@@ -17,7 +17,7 @@ header
                         if !profile.avatarUrl
                             img.header__avatar(src='/uploads/user.png')
                         else
-                            if loggedIn.socialOnly
+                            if profile.avatarUrl.includes('github')
                                 img.header__avatar(src=profile.avatarUrl, alt="")
                             else
                                 img.header__avatar(src="/" + profile.avatarUrl, alt="")

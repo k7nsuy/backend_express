@@ -5,10 +5,10 @@ import './models/User.js'
 import './models/Comment.js'
 import app from './server.js';
 
-const port = 3000
+const port = process.env.NODE_PORT
 
 // listen port
 app.listen(port, () => {
-    console.log('Node server is running on port 3000 ✅');
+    console.log(`Node server is running on port ${port} ✅`);
     }
 )

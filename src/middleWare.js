@@ -1,4 +1,18 @@
 import multer from "multer"
+import multerS3 from "multer-s3"
+import aws from 'aws-sdk'
+
+const s3 = new aws.S3({
+     credentials: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+     }
+})
+
+const multerUploader = multerS3({
+     s3: s3,
+     bucket: process.env.AWS_BUCKET_NAME,
+})
 
 // to use local variables(global variables)
 export const localsMiddleware = (req,res,next) => {
@@ -29,5 +43,13 @@ export const publicMiddleware = (req,res,next) => {
 }
 
 // save uploaded files to local folder named uploads by using multer0
-export const avatarMiddleware = multer({dest: 'uploads/avatars/', limits: {fileSize: 300000}})
-export const videoMiddleware = multer({dest: 'uploads/videos/', limits: {fileSize: 10000000}})
+export const avatarMiddleware = multer({
+     dest: 'uploads/avatars/',
+     limits: {fileSize: 300000},
+     storage: multerUploader
+})
+export const videoMiddleware = multer({
+     dest: 'uploads/videos/',
+     limits: {fileSize: 10000000},
+     storage: multerUploader
+})

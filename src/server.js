@@ -28,7 +28,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 2000000
+      maxAge: 4000000
     },
     store: MongoStore.create({mongoUrl: process.env.DB_URL}) // to save session to mongodb
     })
