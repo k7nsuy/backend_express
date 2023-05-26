@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  nodejs:
+    container_name: node
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      network:
+        ipv4_address: 192.17.0.3
+  mongo:
+    image: mongo
+    container_name: mongo
+    networks:
+      network:
+        ipv4_address: 192.17.0.4
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.17.0.1/16

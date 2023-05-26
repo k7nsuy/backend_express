@@ -1,33 +1,9 @@
 version: 0.2
-
 phases:
-  install:
-    runtime-versions:
-      nodejs: 18
-    commands:
-      # - apt install nodejs
-      # - apt install npm
-      # - npm cache clean -f 
-      # - npm install -g n
-      # - n stable
   build:
     commands:
-      # - apt install curl
-      # - curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-      # - echo "deb http://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-      # - echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list
-      # - apt-get update
-      # - apt-get install libssl1.1
-      # - apt-get install -y mongodb-org
-      # - systemctl enable mongod.service
-      # - systemctl start mongod.service
-      - npm run build
-artifacts:
-  files:
-    - "**/*"
-cache:
-  paths:
-    - "node_modules/**/*"
+        - cd /home/ubuntu/codedeploy/
+        - docker-compose up -d
 
       
       
