@@ -14,14 +14,24 @@ const s3 = new S3Client({
 
 const S3ImageUploader = multerS3({
      s3: s3,
-     bucket: "s3-metube/images",
+     bucket: "s3-metube",
      acl: 'public-read',
+     key: function (request, file, ab_callback) {
+        const newFileName = Date.now() + "-" + file.originalname;
+        const fullPath = "images/" + newFileName;
+        ab_callback(null, fullPath);
+        },
 })
 
 const S3VideoUploader = multerS3({
     s3: s3,
-     bucket: "s3-metube/videos",
+     bucket: "s3-metube",
      acl: 'public-read',
+     key: function (request, file, ab_callback) {
+        const newFileName = Date.now() + "-" + file.originalname;
+        const fullPath = "videos/" + newFileName;
+        ab_callback(null, fullPath);
+        },
 })
 
 // to use local variables(global variables)
@@ -31,7 +41,6 @@ export const localsMiddleware = (req,res,next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn)
     // get user information
     res.locals.profile = req.session.user || {}
-    res.locals.isProduction = isProduction
     next()
 }
 

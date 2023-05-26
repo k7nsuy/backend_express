@@ -10,7 +10,7 @@ block content
             if profile.avatarUrl.includes('github')
                 img(src=profile.avatarUrl, alt="").avatar
             else
-                img(src="/" + profile.avatarUrl, alt="").avatar
+                img(src=profile.avatarUrl, alt="").avatar
         h3=user.name
     div.video-grid
         each video in user.videos 
