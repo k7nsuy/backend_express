@@ -12,6 +12,8 @@ import apiRouter from './router/apiRouter.js';
 // express
 const app = express();
 
+console.log(process.env.NODE_ENV);
+
 // morgan
 app.use(morgan('dev'));
 
