@@ -10,7 +10,7 @@ const s3 = new S3Client({
      }
 })
 
-const isProduction = process.env.NODE_ENV === 'production'
+// const isProduction = process.env.NODE_ENV === 'production'
 
 const S3ImageUploader = multerS3({
      s3: s3,
@@ -57,10 +57,12 @@ export const publicMiddleware = (req,res,next) => {
 export const avatarMiddleware = multer({
      dest: 'uploads/avatars/',
      limits: {fileSize: 300000},
-     storage: isProduction ? S3ImageUploader : undefined
+     storage: S3ImageUploader
+    //  storage: isProduction ? S3ImageUploader : undefined
 })
 export const videoMiddleware = multer({
      dest: 'uploads/videos/',
      limits: {fileSize: 10000000},
-     storage: isProduction ? S3VideoUploader : undefined
+     storage: S3VideoUploader
+    //  storage: isProduction ? S3VideoUploader : undefined
 })

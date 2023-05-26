@@ -181,7 +181,7 @@ export const postEditUser = async (req, res) => {
         file
       } = req;
 
-    const isProduction = process.env.NODE_ENV === 'production'
+    // const isProduction = process.env.NODE_ENV === 'production'
 
     const pageTitle = 'Edit Profile';
     const findUsername = await userModel.findOne({username})
@@ -205,7 +205,7 @@ export const postEditUser = async (req, res) => {
           });
     } else {
         const updatedUser = await userModel.findByIdAndUpdate(_id, {
-            avatarUrl: file ? (isProduction ? file.location : file.path) : avatarUrl,
+            avatarUrl: file ? file.location : avatarUrl,
             name,
             email,
             username,

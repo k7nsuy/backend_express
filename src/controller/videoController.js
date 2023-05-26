@@ -68,13 +68,12 @@ import commentModel from "../models/Comment.js";
     const {title, description, hashtags} = req.body
     const {video, thumb} = req.files
 
-    const isProduction = process.env.NODE_ENV === 'production'
 
     try {
       const newVideo = await videoModel.create({
         title,
-        fileUrl: isProduction ? video[0].location : video[0].path,
-        thumbUrl: isProduction ? thumb[0].location.replace(/[\\]/g, "/") : video[0].path,
+        fileUrl: video[0].location, // file.path
+        thumbUrl: thumb[0].location.replace(/[\\]/g, "/"),
         description,
         hashtags: videoModel.formatHashtags(hashtags),
         owner: _id

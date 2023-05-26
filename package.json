@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "set NODE_ENV=production && node build/init.js",
-    "start:dev": "set NODE_ENV=development && node build/init.js",
+    "start": "node build/init.js",
+    "start:dev": "node build/init.js",
     "build": "npm run build:server && npm run build:assets",
     "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
