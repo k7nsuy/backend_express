@@ -2,7 +2,6 @@ version: 0.2
 phases:
   build:
     commands:
-        - cd /home/ubuntu/codedeploy/
         - docker-compose up -d
 
       
