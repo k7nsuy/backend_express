@@ -2,7 +2,7 @@ version: 0.2
 phases:
   build:
     commands:
-        - docker-compose up -d
+        - docker-compose -f docker-compose.yml build
 
       
       
