@@ -2,7 +2,7 @@ extend ../base.pug
 
 block content 
     div#videoContainer(data-id=video._id)
-        video(src="/" + video.fileUrl controls)
+        video(src=video.fileUrl controls)
     div.video__data
         p.video__title=video.title
         br

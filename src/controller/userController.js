@@ -175,15 +175,18 @@ export const getEditUser = (req, res) => {
 export const postEditUser = async (req, res) => {
     const {
         body: { name, email, username, location },
-        file,
         session: {
-          user: { _id, avatarUrl}
-        }
+            user: { _id, avatarUrl}
+        },
+        file
       } = req;
+
+    const isProduction = process.env.NODE_ENV === 'production'
 
     const pageTitle = 'Edit Profile';
     const findUsername = await userModel.findOne({username})
     const findEmail = await userModel.findOne({email})
+
 
     if (findUsername === username) {
         req.flash('error', "Username already exists")
@@ -202,7 +205,7 @@ export const postEditUser = async (req, res) => {
           });
     } else {
         const updatedUser = await userModel.findByIdAndUpdate(_id, {
-            avatarUrl: file ? file.path : avatarUrl,
+            avatarUrl: file ? (isProduction ? file.location : file.path) : avatarUrl,
             name,
             email,
             username,

@@ -9,9 +9,18 @@ const s3 = new aws.S3({
      }
 })
 
-const multerUploader = multerS3({
+const isProduction = process.env.NODE_ENV === 'production'
+
+const S3ImageUploader = multerS3({
      s3: s3,
-     bucket: process.env.AWS_BUCKET_NAME,
+     bucket: `${process.env.AWS_BUCKET_NAME}/images`,
+     acl: 'public-read',
+})
+
+const S3VideoUploader = multerS3({
+    s3: s3,
+     bucket: `${process.env.AWS_BUCKET_NAME}/videos`,
+     acl: 'public-read',
 })
 
 // to use local variables(global variables)
@@ -21,6 +30,7 @@ export const localsMiddleware = (req,res,next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn)
     // get user information
     res.locals.profile = req.session.user || {}
+    res.locals.isProduction = isProduction
     next()
 }
 
@@ -46,10 +56,10 @@ export const publicMiddleware = (req,res,next) => {
 export const avatarMiddleware = multer({
      dest: 'uploads/avatars/',
      limits: {fileSize: 300000},
-     storage: multerUploader
+     storage: isProduction ? S3ImageUploader : undefined
 })
 export const videoMiddleware = multer({
      dest: 'uploads/videos/',
      limits: {fileSize: 10000000},
-     storage: multerUploader
+     storage: isProduction ? S3VideoUploader : undefined
 })
