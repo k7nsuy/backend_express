@@ -2,7 +2,6 @@ version: 0.2
 phases:
   build:
     commands:
-      - 'docker stop node && docker rm node && docker rmi node'
       - 'docker build -t node .'
       - 'docker run --restart always -d --network node-mongo -p 3000:3000 -v /home/ubuntu/data/:/app/uploads --name node node'
 
